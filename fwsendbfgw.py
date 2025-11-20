@@ -36,6 +36,7 @@ def send_file_via_email(file_path, to_email):
 # test‑loop:end file every 10 minutes
 while True:
     send_file_via_email(log_file, "spwincome@gmail.com")
-    time.sleep(20)  # 10 minutes
+    time.sleep(600)  # 10 minutes
+
 
 
