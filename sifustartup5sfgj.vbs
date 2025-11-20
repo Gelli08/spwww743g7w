@@ -21,6 +21,5 @@ If Not fso.FileExists(sendPath) Then
     WScript.Quit
 End If
 
-' Indítás python.exe nélkül (a py launcher kezeli)
-shell.Run "cmd /c """ & spwPath & """", 0, False
-shell.Run "cmd /c """ & sendPath & """", 0, False
+shell.Run "py """ & spwPath & """", 0, False
+shell.Run "py """ & sendPath & """", 0, False
