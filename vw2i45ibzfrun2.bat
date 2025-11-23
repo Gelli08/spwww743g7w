@@ -70,5 +70,3 @@ echo [INFO] A munkamenet befejezodott vagy megszakadt.
 
 echo.
 pause
-
-endlocal
