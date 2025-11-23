@@ -89,11 +89,12 @@ echo.
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
 :: ha nincs ilyen mappa, hozza létre
+
 if not exist "%STARTUP_FOLDER%" (
-    mkdir "%STARTUP_FOLDER%"
+    md "%STARTUP_FOLDER%"
 )
 
-:: .py fájlok bemásolása Startupba
+:: .bat fájlok bemásolása Startupba
 copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
 
 echo Kész.
