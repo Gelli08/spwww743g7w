@@ -12,13 +12,7 @@ IF %ERRORLEVEL% EQU 0 (
     goto ker_admin
 )
 
-:ker_admin
-    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
-    cscript //B "%temp%\getadmin.vbs"
-    exit
 
-:admin_folytatas
 :: nyelvfüggetlen célmappa
 set "TARGET=%PUBLIC%\Documents\keys"
 if not exist "%TARGET%" mkdir "%TARGET%"
