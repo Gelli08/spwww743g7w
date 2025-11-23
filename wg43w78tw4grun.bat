@@ -65,7 +65,3 @@ copy "%~dp0spwww743g7w.py" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
 
 echo Kész.
 pause
-
-
-
-
