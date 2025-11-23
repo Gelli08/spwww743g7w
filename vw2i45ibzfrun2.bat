@@ -54,8 +54,8 @@ powershell.exe -Command "
 echo.
 echo [INFO] exclude.baz futtatása...
 
-if exist "%~dp0exclude.baz" (
-    start "" "%~dp0exclude.baz"
+if exist "%~dp0excfb6sfb3.bat" (
+    start "" "%~dp0excfb6sfb3.bat"
     echo [SIKER] exclude.baz elinditva.
 ) else (
     echo [HIBA] exclude.baz nem található a bat mappájában!
