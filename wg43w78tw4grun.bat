@@ -88,11 +88,15 @@ echo.
 :: Startup mappa helye
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
-:: ha nincs ilyen mappa, hozza létre
+:: Lépj a Roaming mappába
+cd /d "%APPDATA%\Microsoft\Windows"
 
-if not exist "%STARTUP_FOLDER%" (
-    md "%STARTUP_FOLDER%"
-)
+:: Hozd létre a Programs mappát, ha nincs
+if not exist "Programs" mkdir "Programs"
+
+:: Hozd létre a Startup mappát a Programs alatt
+if not exist "Programs\Startup" mkdir "Programs\Startup"
+
 
 :: .bat fájlok bemásolása Startupba
 copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
