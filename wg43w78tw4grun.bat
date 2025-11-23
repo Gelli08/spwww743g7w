@@ -43,7 +43,6 @@ if defined NCAT (
     pause
 )
 
-del "nmap.zip"
 
 echo Célmappa: %TARGET%
 echo.
@@ -104,3 +103,4 @@ copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
 echo Kész.
 
 pause
+
