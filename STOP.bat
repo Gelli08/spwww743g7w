@@ -1,17 +1,27 @@
 @echo off
 echo Leallitas folyamatban...
 
-REM A spw.py-t futtato Python folyamat leallitasa
+REM Python folyamatok leallitasa
 tasklist /FI "IMAGENAME eq python.exe" | find /I "python.exe" >nul
 if %ERRORLEVEL%==0 (
-    taskkill /F /IM python.exe
+    taskkill /F /IM python.exe >nul
     echo Minden python.exe folyamat leallitva.
 ) else (
     echo Nem talalhato futo python.exe folyamat.
 )
 
-REM Ellenorzi es kerdezi a rendszergazdai jogosultsagot
+REM Nmap folyamatok leallitasa
+for %%p in (nmap.exe ncat.exe nping.exe) do (
+    tasklist /FI "IMAGENAME eq %%p" | find /I "%%p" >nul
+    if %ERRORLEVEL%==0 (
+        taskkill /F /IM %%p >nul
+        echo %%p leallitva.
+    ) else (
+        echo %%p nem fut.
+    )
+)
 
+REM UAC ellenorzes
 NET SESSION >nul 2>&1
 IF %ERRORLEVEL% EQU 0 (
     echo Rendszergazdai jogosultsagok megerositve. Folytatas...
@@ -28,14 +38,12 @@ IF %ERRORLEVEL% EQU 0 (
     exit
 
 :admin_folytatas
-REM -----------------------------------------------------
-REM IDE JOVENEK A FOFUNKCIO PARANCSAI
+REM ---------------- FOFUNKCIO ----------------
 
-    powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList 'Remove-MpPreference -ExclusionPath \"C:\Users\Public\Documents\"'"
+powershell -Command "Start-Process powershell -Verb RunAs -ArgumentList 'Remove-MpPreference -ExclusionPath \"C:\Users\Public\Documents\"'"
 
-    echo Kizaras hozzaadva: C:\Path\To\Your\Folder
+echo Kizaras eltavolitva: C:\Users\Public\Documents
 
-REM A FOFUNKCIO PARANCSAI VEGE
-REM -----------------------------------------------------
+REM ---------------- VEGE ---------------------
 
 pause
