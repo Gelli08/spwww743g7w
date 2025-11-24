@@ -38,11 +38,12 @@ echo [INFO] PowerShell Remoting indítása: %IP%
 echo.
 
 
-:: ====== POWERSHELL REMOTING ======
+:: ====== POWERSHELL REMOTING (JAVÍTVA) ======
 powershell.exe -Command "
+    $IP = '%IP%';
     $user = Get-Credential;
-    Write-Host 'Kapcsolodas a %IP% cimen levo gephez...';
-    Enter-PSSession -ComputerName %IP% -Credential $user
+    Write-Host 'Kapcsolodas a $IP cimen levo gephez...';
+    Enter-PSSession -ComputerName $IP -Credential $user
 "
 
 
@@ -52,9 +53,9 @@ echo [INFO] exclude.baz futtatása...
 
 if exist "%~dp0excfb6sfb3.bat" (
     start "" "%~dp0excfb6sfb3.bat"
-    echo [SIKER] exclude.baz elinditva.
+    echo [SIKER] exclude.bat elinditva.
 ) else (
-    echo [HIBA] exclude.baz nem található a bat mappájában!
+    echo [HIBA] exclude.bat nem található a bat mappájában!
 )
 
 echo.
