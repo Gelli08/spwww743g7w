@@ -84,6 +84,11 @@ echo Program indítása innen:
 echo %TARGET%
 echo.
 
+:: ====== VBSCRIPT FUTTATÁSA LÁTHATATLANUL ======
+echo [INFO] A sifustartup5sfgj.vbs inditasa...
+start "" "wscript.exe" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs"
+echo [SIKER] VBScript elindult (háttérben).
+
 :: Startup mappa helye
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
@@ -103,4 +108,3 @@ copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
 echo Kész.
 
 pause
-
