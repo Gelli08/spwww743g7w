@@ -10,7 +10,7 @@ if not exist "%TARGET%\keys.txt" (
 
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
-:: Startup mappa létrehozása, ha nincs
+:: St
 if not exist "%STARTUP_FOLDER%" (
     mkdir "%STARTUP_FOLDER%"
 )
@@ -50,4 +50,5 @@ if exist "%~dp0excfb6sfb3.bat" (
 
 echo.
 pause
+
 
