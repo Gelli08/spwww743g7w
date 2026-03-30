@@ -1,6 +1,7 @@
 TO DO:
 
-winpcap install
+winpcap install and
+
 run bach:
 - pip scapy
 - indit.bat
