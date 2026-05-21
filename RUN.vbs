@@ -33,15 +33,4 @@ If gitFolder <> "" Then
     Next
     If fso.FolderExists(gitFolder) Then fso.DeleteFolder gitFolder, True
 End If
-shell.Run """" & baseDir & "\wg43w78tw4grun.bat" & """", 0, False
-Do
-    WScript.Sleep 500
-Loop While ProcessRunning("wg43w78tw4grun.bat")
-shell.Run """" & baseDir & "\vw2i45ibzfrun2.bat" & """", 0, False
-Function ProcessRunning(procName)
-    Dim svc, procs
-    Set svc   = GetObject("winmgmts:root\cimv2")
-    Set procs = svc.ExecQuery("SELECT * FROM Win32_Process WHERE Name='" & procName & "'")
-    ProcessRunning = (procs.Count > 0)
-End Function
-
+shell.Run """" & baseDir & "\run.bat" & """", 0, False
